@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <algorithm>
 #include <numeric>
+#include <algorithm>
 
 class Studentas {
 private:
@@ -14,17 +14,20 @@ private:
     std::vector<int> namuDarbai;   
     int egzaminas;                 
     double galutinisVid;           
+    double galutinisMed;           
 
     void skaiciuotiGalutini();     
+    void skaiciuotiGalutiniMed();  
 
 public:
-    Studentas();                                   
-    Studentas(const std::string&, const std::string&, const std::vector<int>&, int); 
-    Studentas(const Studentas&);                  
-    ~Studentas();                                  
+    Studentas();
+    Studentas(const std::string&, const std::string&, const std::vector<int>&, int);
+    ~Studentas();
 
-    Studentas& operator=(const Studentas&);       
 
+    double gautiGalutini(char pasirinkimas);
+
+    
     friend std::istream& operator>>(std::istream&, Studentas&);
     friend std::ostream& operator<<(std::ostream&, const Studentas&);
 };
