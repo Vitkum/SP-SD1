@@ -1,41 +1,32 @@
 #include "Studentas.h"
 
-
-Studentas::Studentas() : egzaminas(0), galutinisVid(0) {}
-
+Studentas::Studentas() : egzaminas(0), galutinisVid(0), galutinisMed(0) {}
 
 Studentas::Studentas(const std::string& v, const std::string& p, const std::vector<int>& nd, int egz)
     : vardas(v), pavarde(p), namuDarbai(nd), egzaminas(egz) {
     skaiciuotiGalutini();
+    skaiciuotiGalutiniMed();
 }
-
-
-Studentas::Studentas(const Studentas& kitas)
-    : vardas(kitas.vardas), pavarde(kitas.pavarde),
-      namuDarbai(kitas.namuDarbai), egzaminas(kitas.egzaminas),
-      galutinisVid(kitas.galutinisVid) {}
-
 
 Studentas::~Studentas() {}
-
-
-Studentas& Studentas::operator=(const Studentas& kitas) {
-    if (this != &kitas) {
-        vardas = kitas.vardas;
-        pavarde = kitas.pavarde;
-        namuDarbai = kitas.namuDarbai;
-        egzaminas = kitas.egzaminas;
-        galutinisVid = kitas.galutinisVid;
-    }
-    return *this;
-}
-
 
 void Studentas::skaiciuotiGalutini() {
     double vidurkis = std::accumulate(namuDarbai.begin(), namuDarbai.end(), 0.0) / namuDarbai.size();
     galutinisVid = 0.4 * vidurkis + 0.6 * egzaminas;
 }
 
+void Studentas::skaiciuotiGalutiniMed() {
+    std::sort(namuDarbai.begin(), namuDarbai.end());
+    size_t n = namuDarbai.size();
+    double med = (n % 2 == 0) ? (namuDarbai[n / 2 - 1] + namuDarbai[n / 2]) / 2.0 : namuDarbai[n / 2];
+    galutinisMed = 0.4 * med + 0.6 * egzaminas;
+}
+
+double Studentas::gautiGalutini(char pasirinkimas) const {
+    if (pasirinkimas == 'v') return galutinisVid;
+    if (pasirinkimas == 'm') return galutinisMed;
+    throw std::invalid_argument("Neteisingas pasirinkimas!");
+}
 
 std::istream& operator>>(std::istream& in, Studentas& s) {
     std::cout << "Įveskite vardą ir pavardę: ";
@@ -51,12 +42,11 @@ std::istream& operator>>(std::istream& in, Studentas& s) {
     in >> s.egzaminas;
 
     s.skaiciuotiGalutini();
+    s.skaiciuotiGalutiniMed();
     return in;
 }
 
-
 std::ostream& operator<<(std::ostream& out, const Studentas& s) {
-    out << s.pavarde << " " << s.vardas
-        << " Galutinis (Vid.): " << s.galutinisVid;
+    out << s.pavarde << " " << s.vardas;
     return out;
 }
