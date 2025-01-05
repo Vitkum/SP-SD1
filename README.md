@@ -12,6 +12,9 @@
 
 ## Paleidimas
 1. Sugeneruokite duomenų failus:
-   ```bash
    g++ FailuGeneravimas.cpp -o generuoti
    ./generuoti
+2. Paleiskite programą:
+make
+./programa
+3. Rezultatus rasite vargsiukai.txt ir kietiakai.txt.
