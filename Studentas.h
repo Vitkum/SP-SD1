@@ -24,10 +24,10 @@ public:
     Studentas(const std::string&, const std::string&, const std::vector<int>&, int);
     ~Studentas();
 
-
-    double gautiGalutini(char pasirinkimas);
-
     
+    double gautiGalutini(char pasirinkimas) const;
+
+   
     friend std::istream& operator>>(std::istream&, Studentas&);
     friend std::ostream& operator<<(std::ostream&, const Studentas&);
 };
