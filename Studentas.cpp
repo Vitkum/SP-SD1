@@ -1,6 +1,5 @@
 #include "Studentas.h"
 
-
 Studentas::Studentas() : egzaminas(0), galutinisVid(0), galutinisMed(0) {}
 
 Studentas::Studentas(const std::string& v, const std::string& p, const std::vector<int>& nd, int egz)
@@ -9,15 +8,12 @@ Studentas::Studentas(const std::string& v, const std::string& p, const std::vect
     skaiciuotiGalutiniMed();
 }
 
-
 Studentas::~Studentas() {}
-
 
 void Studentas::skaiciuotiGalutini() {
     double vidurkis = std::accumulate(namuDarbai.begin(), namuDarbai.end(), 0.0) / namuDarbai.size();
     galutinisVid = 0.4 * vidurkis + 0.6 * egzaminas;
 }
-
 
 void Studentas::skaiciuotiGalutiniMed() {
     std::sort(namuDarbai.begin(), namuDarbai.end());
@@ -26,13 +22,11 @@ void Studentas::skaiciuotiGalutiniMed() {
     galutinisMed = 0.4 * med + 0.6 * egzaminas;
 }
 
-
-double Studentas::gautiGalutini(char pasirinkimas) {
+double Studentas::gautiGalutini(char pasirinkimas) const {
     if (pasirinkimas == 'v') return galutinisVid;
     if (pasirinkimas == 'm') return galutinisMed;
     throw std::invalid_argument("Neteisingas pasirinkimas!");
 }
-
 
 std::istream& operator>>(std::istream& in, Studentas& s) {
     std::cout << "Įveskite vardą ir pavardę: ";
@@ -51,7 +45,6 @@ std::istream& operator>>(std::istream& in, Studentas& s) {
     s.skaiciuotiGalutiniMed();
     return in;
 }
-
 
 std::ostream& operator<<(std::ostream& out, const Studentas& s) {
     out << s.pavarde << " " << s.vardas;
