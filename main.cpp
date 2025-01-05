@@ -4,7 +4,6 @@
 #include <ctime>
 #include "Studentas.h"
 
-
 void generuotiAtsitiktinius(Studentas& s) {
     int namuDarbaiKiekis = rand() % 10 + 1; 
     std::vector<int> namuDarbai;
